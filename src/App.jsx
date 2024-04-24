@@ -1,22 +1,13 @@
 import './App.css';
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/components/ui/avatar';
-
-import { ModeToggle } from './components/ui/mode-toggle';
+import Home from './pages/Home';
 
 function App() {
 
   return (
     <>
-    <ModeToggle/>
-      <Avatar>
-        <AvatarImage src="https://github.com/shadcn.png" />
-        <AvatarFallback>CN</AvatarFallback>
-      </Avatar>
+ <Home/>
+     
     </>
   );
 }
