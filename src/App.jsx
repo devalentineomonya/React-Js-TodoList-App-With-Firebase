@@ -1,15 +1,24 @@
-import './App.css'
-import TodoList from './components/TodoList'
+import './App.css';
+
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@/components/ui/avatar';
+
+import { ModeToggle } from './components/ui/mode-toggle';
 
 function App() {
-  
+
   return (
     <>
-     <div>
-      <TodoList/>
-     </div>
+    <ModeToggle/>
+      <Avatar>
+        <AvatarImage src="https://github.com/shadcn.png" />
+        <AvatarFallback>CN</AvatarFallback>
+      </Avatar>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
