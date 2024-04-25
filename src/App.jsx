@@ -1,13 +1,19 @@
-import './App.css';
+import "./App.css";
+import Navbar from "./components/MainComponents/Navbar/Navbar";
 
-import Home from './pages/Home';
+import Home from "./pages/Home";
 
 function App() {
-
   return (
     <>
- <Home/>
-     
+    <header>
+
+      <Navbar />
+    </header>
+      <main id="main">
+
+      <Home />
+      </main>
     </>
   );
 }
