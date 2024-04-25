@@ -1,9 +1,6 @@
-import CardsContainer from '@/components/MainComponents/Home/CardsContainer/CardsContainer';
-import { ArrowBigDown, BookAIcon, Hammer, RollerCoaster } from 'lucide-react';
-import {
-  useEffect,
-  useState,
-} from 'react';
+import CardsContainer from "@/components/MainComponents/Home/CardsContainer/CardsContainer";
+import { ArrowBigDown, BookAIcon, Hammer, RollerCoaster } from "lucide-react";
+import { useEffect, useState } from "react";
 
 let tasks = [
   {
@@ -57,12 +54,15 @@ let tasks = [
 ];
 
 const Home = () => {
+
+
   const [taskList, setTaskList] = useState(tasks);
   const [activeTab, setActiveTab] = useState(null);
   const [doneTasks, setDoneTasks] = useState(null);
   const [inProgressTasks, setInProgressTasks] = useState(null);
   const [pendingTasks, setPendingTasks] = useState(null);
   const [abortedTasks, setAbortedTasks] = useState(null);
+  
 
   useEffect(() => {
     setDoneTasks(taskList.filter((task) => task.status === "done"));
@@ -70,7 +70,6 @@ const Home = () => {
     setPendingTasks(taskList.filter((task) => task.status === "pending"));
     setAbortedTasks(taskList.filter((task) => task.status === "aborted"));
   }, [taskList]);
-
 
   const onDrop = (status, position) => {
     console.log(
