@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const DropingArea = ({ onDrop }) => {
+const DropingArea = ({ onDrop , length}) => {
   const [showDrop, setShowDrop] = useState(false);
   return (
     <section
@@ -14,8 +14,8 @@ const DropingArea = ({ onDrop }) => {
         e.preventDefault();
       }}
       className={`transition-all duration-200 ease-in-out ${
-        showDrop
-          ? "w-full h-full border border-dashed border-[#dcdcdc] rounded-md p-4 opacity-100  "
+        showDrop || length === 0
+          ? "w-full h-[120px] border-2 border-dashed border-[#9d9d9d] rounded-md p-4 opacity-100 flex justify-center items-center  "
           : "opacity-0"
       } `}
     >
