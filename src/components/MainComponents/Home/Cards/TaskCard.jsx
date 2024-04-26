@@ -7,9 +7,18 @@ import {
   AvatarFallback,
   AvatarImage,
 } from '@radix-ui/react-avatar';
+import {
+  Card,
+  CardContent
+} from "@/components/ui/card"
+import { Button } from '@/components/ui/button';
 
 const TaskCard = ({ task, setActiveTab }) => {
   return (
+    <Card>
+
+  <CardContent>
+   
     <div
       className="draggable flex flex-col rounded-md py-2 px-1 justify-start bg-white h-40 active:opacity-70 active:border border-gray-500 cursor-grab active:cursor-grabbing"
       draggable
@@ -39,15 +48,18 @@ const TaskCard = ({ task, setActiveTab }) => {
           <span>1</span>
         </div>
         <div className="flex gap-x-2 ">
-          <button className="py-1 text-sm font-semibold text-orange-950 bg-yellow-600 rounded-full px-2">
-            medium
-          </button>
-          <button className="py-1 text-sm font-semibold text-blue-600 bg-sky-500 rounded-full px-2">
-            Infrastrucure
-          </button>
+          <Button className="text-sm font-semibold text-black hover:text-white  rounded-full h-6 hover:bg-green-500 bg-transparent border border-green-500 hover:border-transparent w-14">
+            Delete
+          </Button>
+          <Button className="text-sm font-semibold text-black hover:text-white  rounded-full h-6 hover:bg-red-500 bg-transparent border border-red-500 hover:border-transparent w-14">
+            Edit
+          </Button>
         </div>
       </div>
     </div>
+  </CardContent>
+ 
+</Card>
   );
 };
 
