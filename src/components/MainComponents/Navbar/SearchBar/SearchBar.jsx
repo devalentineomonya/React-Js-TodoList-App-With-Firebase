@@ -45,6 +45,8 @@ function SearchBar(props) {
     command();
   };
 
+ const  docsConfig = [{}]
+
   return (
     <>
       <Button

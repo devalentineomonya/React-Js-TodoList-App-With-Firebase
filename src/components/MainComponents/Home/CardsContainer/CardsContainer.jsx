@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import DropingArea from "../Cards/DropingArea";
-import NotAvailableCard from "../Cards/NotAvailableCard";
 import TaskCard from "../Cards/TaskCard";
 
 const CardsContainer = ({ tasks, icon, title, setActiveTab, onDrop, status }) => {
@@ -20,11 +19,11 @@ const CardsContainer = ({ tasks, icon, title, setActiveTab, onDrop, status }) =>
           <span>{tasks ? tasks.length : 0}</span>
         </div>
       </div>
-      <div className={`h-full w-full bg-[#f4f4f4] pt-4`}>
+      <div className={`h-fit w-full bg-[#f4f4f4] pt-4`}>
         <div
           onDragEnter={() => setShowDrop(true)}
           onDragLeave={() => setShowDrop(false)}
-          className={`w-full h-[800px] flex flex-col px-4 ${
+          className={`w-full ${ tasks ? tasks.length <=4 ? "h-screen" : "h-fit" : "h-screen"} flex flex-col px-4 ${
             tasks && tasks.length === 0 ? "justify-center items-center" : null
           } `}
         >

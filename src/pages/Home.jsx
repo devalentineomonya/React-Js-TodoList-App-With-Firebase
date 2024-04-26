@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CardsContainer from "@/components/MainComponents/Home/CardsContainer/CardsContainer";
 import { ArrowBigDown, BookAIcon, Hammer, RollerCoaster } from "lucide-react";
-import SearchBar from '@/components/MainComponents/Navbar/SearchBar/SearchBar';
 
 const Home = () => {
   
