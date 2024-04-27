@@ -1,5 +1,4 @@
 import React from "react";
-import { useToast } from "@/components/ui/use-toast";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,8 +19,15 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { TaskCombo } from "./TaskCombo";
+import { useTaskContext } from "@/Context/TaskContext";
+import { toast } from "sonner";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "@/config/firebaseConfig";
 
 const FormDialog = () => {
+  const { taskList, setTaskList } = useTaskContext();
+  console.log(taskList);
+
   const FormSchema = z.object({
     title: z.string().min(5, {
       message: "Title must be at least 5 characters.",
@@ -40,20 +46,40 @@ const FormDialog = () => {
     }),
   });
 
-  const { toast } = useToast();
   const form = useForm({
     resolver: zodResolver(FormSchema),
   });
 
-  function onSubmit(data) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
+  async function onSubmit(data) {
+    const task = {
+      userEmail: "valomosh254@gmail.com",
+      todoTitle: data.title,
+      todoStatus: data.status,
+      todoDescription: data.description,
+      todoStart: data.start,
+      todoEnd: data.end,
+    };
+    try {
+      setTaskList([...taskList, task]);
+       await addDoc(collection(db, "usersTodoList"), {
+        ...task,
+      });
+      toast("Task has been Added", {
+        description: `${data.description} from ${data.start} to ${data.end}`,
+        action: {
+          label: "Close",
+        },
+      });
+    } catch (error) {
+      toast("Failed to add task", {
+        description: "An error occurred while adding task",
+        action: {
+          label: "Close",
+        },
+      });
+    }
+
+    form.resetField();
   }
 
   const inputFields = [
@@ -84,6 +110,7 @@ const FormDialog = () => {
       type: "datetime-local",
     },
   ];
+
   return (
     <DialogContent>
       <DialogHeader>
