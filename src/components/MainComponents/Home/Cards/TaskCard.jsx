@@ -1,13 +1,32 @@
 import React from "react";
-import { MessageSquareText, PenIcon } from "lucide-react";
+import { MessageSquareText } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import FormDialog from "../../CreateTodo/FormDialog";
-
+import { useTaskContext } from "@/Context/TaskContext";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { doc, deleteDoc } from "firebase/firestore";
+import { db } from "@/config/firebaseConfig";
 const TaskCard = ({ task, setActiveTab }) => {
-  console.log(task);
+  const { taskList, setTaskList } = useTaskContext();
+
+  async function handleDelete(taskId) {
+    await deleteDoc(doc(db, "usersTodoList", taskId)); 
+    const newTaskList = taskList.filter((task) => task.id !== taskId);
+    setTaskList(newTaskList);
+  }
+
   return (
     <Card>
       <CardContent>
@@ -26,7 +45,6 @@ const TaskCard = ({ task, setActiveTab }) => {
                 <AvatarImage src="https://github.com/shadcn.png" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
-              )
             </div>
           </div>
           <div className="container p-0 overflow-hidden text-ellipsis whitespace-wrap h-20">
@@ -40,9 +58,27 @@ const TaskCard = ({ task, setActiveTab }) => {
               <span>1</span>
             </div>
             <div className="flex gap-x-2 ">
-              <Button className="text-sm font-semibold text-black dark:hover:text-black dark:text-white hover:text-white  rounded-full h-6 hover:bg-red-500 border-red-500  bg-transparent border hover:border-transparent w-14">
-                Delete
-              </Button>
+              <AlertDialog>
+                <AlertDialogTrigger className="text-sm font-semibold text-black dark:hover:text-black dark:text-white hover:text-white  rounded-full h-6 hover:bg-red-500 border-red-500  bg-transparent border hover:border-transparent w-14">
+                  Delete
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Are you absolutely sure?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. This will permanently delete
+                      your task and remove your data from our servers.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel >Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={() => handleDelete(task.id)}>Continue</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+
               <Dialog>
                 <DialogTrigger className="text-sm font-semibold text-black dark:hover:text-black dark:text-white hover:text-white  rounded-full h-6  bg-transparent border hover:bg-green-500  border-green-500  hover:border-transparent w-14">
                   Edit
