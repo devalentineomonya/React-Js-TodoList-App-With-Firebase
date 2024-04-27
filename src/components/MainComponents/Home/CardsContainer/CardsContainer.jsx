@@ -6,7 +6,7 @@ const CardsContainer = ({ tasks, icon, title, setActiveTab, onDrop, status }) =>
   const [showDrop, setShowDrop] = useState(false);
   return (
     <div
-      className={`w-full h-[800px] border dark:border-gray-400 border-gray-300 rounded-md bg-white overflow-y-scroll ${
+      className={`w-full h-[800px] border dark:border-gray-400 border-gray-300 rounded-md  dark:bg-slate-800 bg-white ${ tasks ? tasks.length <=4 ? "overflow-y-hidden " :"overflow-y-scroll" : "overflow-y-hidden"}  ${
         showDrop ? "border border-dashed border-gray-500" : null
       }`}
     >
@@ -19,11 +19,11 @@ const CardsContainer = ({ tasks, icon, title, setActiveTab, onDrop, status }) =>
           <span>{tasks ? tasks.length : 0}</span>
         </div>
       </div>
-      <div className={`h-fit w-full bg-[#f4f4f4] pt-4`}>
+      <div className={`h-fit w-full  dark:bg-slate-900 bg-[#f4f4f4] pt-4`}>
         <div
           onDragEnter={() => setShowDrop(true)}
           onDragLeave={() => setShowDrop(false)}
-          className={`w-full ${ tasks ? tasks.length <=4 ? "h-screen" : "h-fit" : "h-screen"} flex flex-col px-4 ${
+          className={`w-full ${ tasks ? tasks.length <=4 ? "h-screen " : "h-fit" : "h-screen"} flex flex-col px-4 ${
             tasks && tasks.length === 0 ? "justify-center items-center" : null
           } `}
         >

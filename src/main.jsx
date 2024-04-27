@@ -1,15 +1,15 @@
-import './index.css';
+import "./index.css";
 
-import React from 'react';
+import React from "react";
 
-import ReactDOM from 'react-dom/client';
+import ReactDOM from "react-dom/client";
 
-import App from './App.jsx';
-import { ThemeProvider } from './components/ui/theme-provider.jsx';
+import App from "./App.jsx";
+import { ThemeProvider } from "./components/ui/theme-provider.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <App />
     </ThemeProvider>
   </React.StrictMode>

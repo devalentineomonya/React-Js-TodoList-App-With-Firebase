@@ -10,7 +10,7 @@ const LoginPageImage = () => {
         backgroundSize: "cover",
       }}
     >
-      <div className="h-56 w-96 border-blue-700 bg-white border-2 rounded-md flex justify-center items-center">
+      <div className="h-56 w-96 border-blue-700 dark:bg-slate-950 dark:border-slate-500 bg-white border-2 rounded-md flex justify-center items-center">
         <div className="flex flex-row w-full">
           <div className="flex justify-between w-full flex-col px-1">
             <div className="flex justify-between items-center w-full mb-4">

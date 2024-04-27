@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import CreateTodo from "../CreateTodo/CreateTodo";
+import { ModeToggle } from "@/components/ui/mode-toggle";
 
 
 
@@ -30,13 +31,14 @@ const Navbar = () => {
 
         <div className="flex justify-center items-center gap-x-3">
           <CreateTodo/>
+          <ModeToggle/>
           <div>
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <Avatar>
                  
                   <AvatarImage src="https://github.com/shadcn.png" width={50} height={50} className="rounded-full" />
-                  <AvatarFallback>CN</AvatarFallback>
+                  <AvatarFallback className="p-2">CN</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
