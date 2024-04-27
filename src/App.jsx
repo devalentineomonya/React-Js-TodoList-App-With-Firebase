@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Loginpage from "./pages/Loginpage";
 import NotFound from "./pages/NotFound";
 import { Toaster } from "./components/ui/toaster";
+import { collection, getDocs } from "firebase/firestore";
 
 function App() {
   return (
