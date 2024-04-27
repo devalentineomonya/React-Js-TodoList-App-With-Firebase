@@ -12,7 +12,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { CreateTodo } from "../CreateTodo/CreateTodo";
+import CreateTodo from "../CreateTodo/CreateTodo";
+
 
 
 const Navbar = () => {
