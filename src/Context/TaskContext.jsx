@@ -8,10 +8,8 @@ export const useTaskContext = () => useContext(TaskContext);
 
 export const TaskProvider = ({ children }) => {
   const [taskList, setTaskList] = useState([]);
-  const [loading, setLoading] = useState(false);
 
   const getTodoLists = async () => {
-    setLoading(true);
     try {
       const querySnapshot = await getDocs(collection(db, "usersTodoList"));
       const tasks = querySnapshot.docs.map((doc) => ({
@@ -21,9 +19,6 @@ export const TaskProvider = ({ children }) => {
       setTaskList(tasks);
     } catch (error) {
       console.error("An error occurred while fetching todo", error);
-      
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -32,7 +27,7 @@ export const TaskProvider = ({ children }) => {
   }, []);
 
   return (
-    <TaskContext.Provider value={{ taskList, setTaskList, loading }}>
+    <TaskContext.Provider value={{ taskList, setTaskList }}>
       {children}
     </TaskContext.Provider>
   );

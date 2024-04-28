@@ -3,9 +3,11 @@ import CardsContainer from "@/components/MainComponents/Home/CardsContainer/Card
 import { ArrowBigDown, BookAIcon, Hammer, RollerCoaster } from "lucide-react";
 import { useTaskContext } from "@/Context/TaskContext";
 import AuthContext from "@/Context/AuthContext";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "@/config/firebaseConfig";
 
 const Home = () => {
-  const { loading, taskList } = useTaskContext();
+  const {taskList, setTaskList } = useTaskContext();
   const [activeTab, setActiveTab] = useState(null);
   const [doneTasks, setDoneTasks] = useState([]);
   const [abortedTasks, setAbortedTasks] = useState([]);
@@ -41,17 +43,34 @@ const Home = () => {
     }
   }, [taskList]);
 
-  const onDrop = (status, position) => {
-    if (activeTab === null || activeTab === undefined) return;
+  const onDrop = async (status, position) => {
+    if (activeTab === null || activeTab === undefined || taskList.length === 0)
+      return;
+
     const taskToMove = taskList.find((task) => task.id === activeTab);
-    const updatedTasks = taskList.filter((task) => task.id !== activeTab);
+
+    if (!taskToMove) return;
+
+    const updatedTasks = [...taskList.filter((task) => task.id !== activeTab)];
+
     updatedTasks.splice(position, 0, {
       ...taskToMove,
       todoStatus: status,
     });
+    const task = {
+      ...taskToMove,
+      todoStatus: status,
+    };
+    await setDoc(doc(db, "usersTodoList", activeTab), {
+      ...task,
+    });
+
+    setTaskList(updatedTasks);
   };
+
   return (
     <div className="grid sm:grid-cols-2 grid-cols-1 gap-y-4 xl:grid-cols-4 md:grid-cols-3  gap-x-4 h-[calc(100vh-130px)] ">
+      <h1>{activeTab}</h1>
       <CardsContainer
         icon={<Hammer />}
         tasks={inProgressTasks}
