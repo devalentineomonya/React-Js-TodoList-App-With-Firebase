@@ -27,10 +27,7 @@ import AuthContext from "@/Context/AuthContext";
 
 const FormDialog = () => {
   const { user } = useContext(AuthContext);
-  let userEmail;
-  if (user.isAnonymous) {
-    userEmail = "anonymous_" + user.uid.slice(0, 5) + "@unknown.com";
-  }
+
 
   const { taskList, setTaskList } = useTaskContext();
   const FormSchema = z.object({
@@ -57,7 +54,7 @@ const FormDialog = () => {
 
   async function onSubmit(data) {
     const task = {
-      userEmail: userEmail,
+      userEmail: user.email,
       todoTitle: data.title,
       todoStatus: data.status,
       todoDescription: data.description,

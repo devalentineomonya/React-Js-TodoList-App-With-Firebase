@@ -1,5 +1,4 @@
 import AuthContext from "@/Context/AuthContext";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -16,7 +15,6 @@ import { useContext } from "react";
 export function EditProfile() {
   const { user } = useContext(AuthContext);
 
-console.log(user);
   return (
     <Dialog>
       <DialogTrigger className="pl-2">Your Profile</DialogTrigger>
