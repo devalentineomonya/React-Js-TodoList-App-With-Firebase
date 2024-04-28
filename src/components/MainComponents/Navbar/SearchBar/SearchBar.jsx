@@ -13,9 +13,10 @@ import {
   CommandList,
   CommandSeparator,
 }  from "@/components/ui/command"
+import { useTaskContext } from "@/Context/TaskContext";
 
 function SearchBar(props) {
-
+const {taskList} = useTaskContext();
   const [open, setOpen] = useState(false);
 
 
@@ -40,12 +41,7 @@ function SearchBar(props) {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
-  const runCommand = (command) => {
-    setOpen(false);
-    command();
-  };
 
- const  docsConfig = [{}]
 
   return (
     <>
@@ -68,20 +64,16 @@ function SearchBar(props) {
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="Links">
-            {/* {docsConfig.mainNav
-              .filter((navitem) => !navitem.external)
-              .map((navItem) => (
+            {taskList.filter((todo) => todo.name !== null ).map((todo) => (
                 <CommandItem
-                  key={navItem.href}
-                  value={navItem.title}
-                  onSelect={() => {
-                    runCommand(() => router.push(navItem.href));
-                  }}
+                  key={todo.id}
+                  value={todo.title}
+                
                 >
-                  <File className="mr-2 h-4 w-4" />
-                  {navItem.title}
+                  {/* <File className="mr-2 h-4 w-4" /> */}
+                  {todo.title}
                 </CommandItem>
-              ))} */}
+              ))}
           </CommandGroup>
           {/* {docsConfig.sidebarNav.map((group) => (
             <CommandGroup key={group.title} heading={group.title}>
