@@ -23,7 +23,7 @@ const LoginFormContainer = () => {
   return (
     <div className="flex justify-center flex-col items-center p-40 h-full w-full">
       <Button>Login With Google</Button>
-      <Button className="mt-5" onClick={loginAnonymously} disabled={user !== null}>
+      <Button className="mt-5" onClick={()=>loginAnonymously()}>
         Continue as Guest
       </Button>
     </div>
