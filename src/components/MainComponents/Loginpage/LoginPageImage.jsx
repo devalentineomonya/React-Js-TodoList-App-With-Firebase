@@ -3,7 +3,7 @@ import loginBg from "@/assets/loginBg.png";
 const LoginPageImage = () => {
   return (
     <div
-      className="w-full h-full rounded-md flex justify-center  items-center"
+      className="w-full h-full md:rounded-md rounded-none flex justify-center  items-center"
       style={{
         background: `url(${loginBg})`,
         backgroundRepeat: "no-repeat",

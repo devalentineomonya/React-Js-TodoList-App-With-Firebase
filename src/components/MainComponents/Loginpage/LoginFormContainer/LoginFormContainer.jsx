@@ -1,15 +1,33 @@
-import { Button } from '@/components/ui/button'
-import React from 'react'
+import { Button } from "@/components/ui/button";
+import React, { useContext } from "react";
+import { getAuth, signInAnonymously } from "firebase/auth";
+import AuthContext from "@/Context/AuthContext";
 
 const LoginFormContainer = () => {
-  return (
-    <div className="flex justify-center items-center p-40 h-full w-full">
-        <form action="">
-            <Button>Login With Google</Button>
-        </form>
-    
-    </div>
-  )
-}
+  const { user } = useContext(AuthContext);
 
-export default LoginFormContainer
+
+  function loginAnonymously() {
+    const auth = getAuth();
+    signInAnonymously(auth)
+      .then(() => {
+  
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.error("Anonymous login failed with error code:", errorCode, "and message:", errorMessage);
+      });
+  }
+
+  return (
+    <div className="flex justify-center flex-col items-center p-40 h-full w-full">
+      <Button>Login With Google</Button>
+      <Button className="mt-5" onClick={loginAnonymously} disabled={user !== null}>
+        Continue as Guest
+      </Button>
+    </div>
+  );
+};
+
+export default LoginFormContainer;
