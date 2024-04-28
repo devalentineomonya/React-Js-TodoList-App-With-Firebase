@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,9 +23,12 @@ import { useTaskContext } from "@/Context/TaskContext";
 import { toast } from "sonner";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "@/config/firebaseConfig";
+import AuthContext from "@/Context/AuthContext";
 
 const EditFormDialog = ({ todoItem, changed, setChanged }) => {
   const { taskList, setTaskList } = useTaskContext();
+  const { user } = useContext(AuthContext);
+
 
 
   const FormSchema = z.object({
@@ -62,7 +65,7 @@ const EditFormDialog = ({ todoItem, changed, setChanged }) => {
 
   async function onSubmit(data) {
     const task = {
-      userEmail: "valomosh254@gmail.com",
+      userEmail: user.email,
       todoTitle: data.title,
       todoStatus: data.status,
       todoDescription: data.description,
