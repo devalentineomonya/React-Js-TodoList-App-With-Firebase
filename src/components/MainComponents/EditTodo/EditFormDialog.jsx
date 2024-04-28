@@ -24,8 +24,9 @@ import { toast } from "sonner";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "@/config/firebaseConfig";
 
-const EditFormDialog = ({ todoItem }) => {
+const EditFormDialog = ({ todoItem, changed, setChanged }) => {
   const { taskList, setTaskList } = useTaskContext();
+
 
   const FormSchema = z.object({
     title: z.string().min(5, {
@@ -101,6 +102,7 @@ const EditFormDialog = ({ todoItem }) => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
+            onChange={()=>setChanged(true)}
             className="w-full flex flex-col space-y-6"
           >
             <FormField
@@ -165,7 +167,7 @@ const EditFormDialog = ({ todoItem }) => {
                 )}
               />
             </div>
-            <Button type="submit">Submit</Button>
+            <Button type="submit" disabled={!changed}>Submit Update</Button>
           </form>
         </Form>
       </DialogHeader>
