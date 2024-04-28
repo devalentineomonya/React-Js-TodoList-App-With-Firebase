@@ -70,7 +70,7 @@ const Home = () => {
 
   return (
     <div className="grid sm:grid-cols-2 grid-cols-1 gap-y-4 xl:grid-cols-4 md:grid-cols-3  gap-x-4 h-[calc(100vh-130px)] ">
-      <h1>{activeTab}</h1>
+  
       <CardsContainer
         icon={<Hammer />}
         tasks={inProgressTasks}
