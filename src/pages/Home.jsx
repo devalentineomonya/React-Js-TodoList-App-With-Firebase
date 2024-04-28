@@ -21,7 +21,7 @@ const Home = () => {
         taskList.filter((task) => task.todoStatus === "pending") || []
       );
       setAbortedTasks(
-        taskList.filter((task) => task.todoStatus === "aborted") || []
+        taskList.filter((task) => task.todoStatus === "cancelled") || []
       );
     }
   }, [taskList]);
@@ -34,45 +34,41 @@ const Home = () => {
       ...taskToMove,
       todoStatus: status,
     });
-  
   };
-
   return (
-    <div className="">
-      <div className="grid xl:grid-cols-4 md:grid-cols-3 md:grid-rows-2 sm:grid-rows-2 grid-rows-4 sm:grid-cols-2 grid-cols-1 gap-x-4 h-screen ">
-        <CardsContainer
-          icon={<Hammer />}
-          tasks={inProgressTasks}
-          title="In Progress"
-          status="inProgress"
-          setActiveTab={setActiveTab}
-          onDrop={onDrop}
-        />
-        <CardsContainer
-          icon={<RollerCoaster />}
-          tasks={pendingTasks}
-          title="In Review"
-          status="pending"
-          setActiveTab={setActiveTab}
-          onDrop={onDrop}
-        />
-        <CardsContainer
-          icon={<BookAIcon />}
-          tasks={doneTasks}
-          title="Done"
-          status="done"
-          setActiveTab={setActiveTab}
-          onDrop={onDrop}
-        />
-        <CardsContainer
-          icon={<ArrowBigDown />}
-          tasks={abortedTasks}
-          title="Abandoned"
-          status="aborted"
-          setActiveTab={setActiveTab}
-          onDrop={onDrop}
-        />
-      </div>
+    <div className="grid sm:grid-cols-2 grid-cols-1 gap-y-4 xl:grid-cols-4 md:grid-cols-3  gap-x-4 h-[calc(100vh-130px)] ">
+      <CardsContainer
+        icon={<Hammer />}
+        tasks={inProgressTasks}
+        title="In Progress"
+        status="inProgress"
+        setActiveTab={setActiveTab}
+        onDrop={onDrop}
+      />
+      <CardsContainer
+        icon={<RollerCoaster />}
+        tasks={pendingTasks}
+        title="In Review"
+        status="pending"
+        setActiveTab={setActiveTab}
+        onDrop={onDrop}
+      />
+      <CardsContainer
+        icon={<BookAIcon />}
+        tasks={doneTasks}
+        title="Done"
+        status="done"
+        setActiveTab={setActiveTab}
+        onDrop={onDrop}
+      />
+      <CardsContainer
+        icon={<ArrowBigDown />}
+        tasks={abortedTasks}
+        title="Abandoned"
+        status="aborted"
+        setActiveTab={setActiveTab}
+        onDrop={onDrop}
+      />
     </div>
   );
 };

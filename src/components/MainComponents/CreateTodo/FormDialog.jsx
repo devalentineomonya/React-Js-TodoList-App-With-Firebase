@@ -21,12 +21,12 @@ import {
 import { TaskCombo } from "./TaskCombo";
 import { useTaskContext } from "@/Context/TaskContext";
 import { toast } from "sonner";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { db } from "@/config/firebaseConfig";
 
 const FormDialog = () => {
   const { taskList, setTaskList } = useTaskContext();
-  console.log(taskList);
+
 
   const FormSchema = z.object({
     title: z.string().min(5, {
@@ -51,14 +51,16 @@ const FormDialog = () => {
   });
 
   async function onSubmit(data) {
+    
     const task = {
       userEmail: "valomosh254@gmail.com",
       todoTitle: data.title,
       todoStatus: data.status,
       todoDescription: data.description,
-      todoStart: data.start,
-      todoEnd: data.end,
+      todoStart: Timestamp.fromDate(new Date(data.start)),
+      todoEnd: Timestamp.fromDate(new Date(data.end)),
     };
+    const prevTasks = taskList
     try {
       setTaskList([...taskList, task]);
        await addDoc(collection(db, "usersTodoList"), {
@@ -71,6 +73,7 @@ const FormDialog = () => {
         },
       });
     } catch (error) {
+      setTaskList(prevTasks)
       toast("Failed to add task", {
         description: "An error occurred while adding task",
         action: {

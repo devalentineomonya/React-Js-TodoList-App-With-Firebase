@@ -18,11 +18,12 @@ import {
 } from "@/components/ui/alert-dialog";
 import { doc, deleteDoc } from "firebase/firestore";
 import { db } from "@/config/firebaseConfig";
+import EditTodo from "../../EditTodo/EditTodo";
 const TaskCard = ({ task, setActiveTab }) => {
   const { taskList, setTaskList } = useTaskContext();
-
+ 
   async function handleDelete(taskId) {
-    await deleteDoc(doc(db, "usersTodoList", taskId)); 
+    await deleteDoc(doc(db, "usersTodoList", taskId));
     const newTaskList = taskList.filter((task) => task.id !== taskId);
     setTaskList(newTaskList);
   }
@@ -73,16 +74,16 @@ const TaskCard = ({ task, setActiveTab }) => {
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
-                    <AlertDialogCancel >Cancel</AlertDialogCancel>
-                    <AlertDialogAction onClick={() => handleDelete(task.id)}>Continue</AlertDialogAction>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={() => handleDelete(task.id)}>
+                      Continue
+                    </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
 
               <Dialog>
-                <DialogTrigger className="text-sm font-semibold text-black dark:hover:text-black dark:text-white hover:text-white  rounded-full h-6  bg-transparent border hover:bg-green-500  border-green-500  hover:border-transparent w-14">
-                  Edit
-                </DialogTrigger>
+                <EditTodo todoItem={task}/>
                 <FormDialog />
               </Dialog>
             </div>
