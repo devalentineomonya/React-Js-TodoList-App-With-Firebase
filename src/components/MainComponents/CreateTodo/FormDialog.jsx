@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,11 +23,16 @@ import { useTaskContext } from "@/Context/TaskContext";
 import { toast } from "sonner";
 import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { db } from "@/config/firebaseConfig";
+import AuthContext from "@/Context/AuthContext";
 
 const FormDialog = () => {
+  const { user } = useContext(AuthContext);
+  let userEmail;
+  if (user.isAnonymous) {
+    userEmail = "anonymous_" + user.uid.slice(0, 5) + "@unknown.com";
+  }
+
   const { taskList, setTaskList } = useTaskContext();
-
-
   const FormSchema = z.object({
     title: z.string().min(5, {
       message: "Title must be at least 5 characters.",
@@ -51,19 +56,18 @@ const FormDialog = () => {
   });
 
   async function onSubmit(data) {
-    
     const task = {
-      userEmail: "valomosh254@gmail.com",
+      userEmail: userEmail,
       todoTitle: data.title,
       todoStatus: data.status,
       todoDescription: data.description,
       todoStart: Timestamp.fromDate(new Date(data.start)),
       todoEnd: Timestamp.fromDate(new Date(data.end)),
     };
-    const prevTasks = taskList
+    const prevTasks = taskList;
     try {
       setTaskList([...taskList, task]);
-       await addDoc(collection(db, "usersTodoList"), {
+      await addDoc(collection(db, "usersTodoList"), {
         ...task,
       });
       toast("Task has been Added", {
@@ -73,7 +77,7 @@ const FormDialog = () => {
         },
       });
     } catch (error) {
-      setTaskList(prevTasks)
+      setTaskList(prevTasks);
       toast("Failed to add task", {
         description: "An error occurred while adding task",
         action: {

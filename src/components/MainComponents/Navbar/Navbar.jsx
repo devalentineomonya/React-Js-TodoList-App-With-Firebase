@@ -16,13 +16,14 @@ import CreateTodo from "../CreateTodo/CreateTodo";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import AuthContext from "@/Context/AuthContext";
 import useFirebaseAuthentication from "@/Auth/Signout";
+import { EditProfile } from "../Editprofile/Editprofile";
 
 const Navbar = () => {
-  const { loggedIn } = useContext(AuthContext);
-  const { signOutAnonymousUser } = useFirebaseAuthentication();
+  const { loggedIn, user} = useContext(AuthContext);
+  const { signOutUser } = useFirebaseAuthentication();
 
   const handleSignOut = () => {
-    signOutAnonymousUser();
+    signOutUser();
   };
 
   return (
@@ -47,18 +48,18 @@ const Navbar = () => {
                 <DropdownMenuTrigger>
                   <Avatar>
                     <AvatarImage
-                      src="https://github.com/shadcn.png"
-                      width={50}
-                      height={50}
+                      src={user.photoURL}
+                      width={46}
+                      height={46}
                       className="rounded-full"
                     />
-                    <AvatarFallback className="p-2">CN</AvatarFallback>
+                    <AvatarFallback className="p-2">{user.displayName.slice(0,2)}</AvatarFallback>
                   </Avatar>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <EditProfile/>
                   <DropdownMenuItem onClick={()=>handleSignOut()}>Log out</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>

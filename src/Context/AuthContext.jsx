@@ -10,10 +10,15 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      const userId = user.uid
-      if (userId) {
-        setUser(user);
+      if (user) {
+        const userName = user.displayName || "Anonymous User - " + user.uid.slice(0, 5);
+ 
+        const userEmail = user.email || `anonymous_${user.uid.slice(0, 5)}@unknown.com`;
+        setUser({ ...user, email: userEmail, displayName: userName });
         setLoggedIn(true);
+      } else {
+        setUser(null);
+        setLoggedIn(false);
       }
     });
     return () => unsubscribe();
